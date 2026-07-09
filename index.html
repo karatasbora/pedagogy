@@ -1,421 +1,49 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pedagogy + with Bora</title>
-  <meta name="description" content="Bora Karataş'ın veliler için hazırladığı, çocuklarda erken yaşta İngilizce edinimi, oyunlaştırma ve TEFL pedagojisi odaklı makaleler.">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Global Shared SSoT Navigation Styles -->
-  <link rel="stylesheet" href="https://withbora.io/wp-content/plugins/withbora-lms-bridge/withbora-global-nav.css">
+---
+layout: default
+---
 
-  <style>
-    :root {
-      /* Trust Palette (Parent Theme) */
-      --primary: #1A2B4A;
-      --primary-light: #EFF6FF;
-      --secondary: #2C5282;
-      --accent: #3182CE;
-      --success: #276749;
-      --text: #1A202C;
-      --text-light: #718096;
-      --bg: #F7FAFC;
-      --surface: #ffffff;
-      --border: #E2E8F0;
-      
-      --radius-md: 12px;
-      --radius-lg: 20px;
-    }
+<!-- Hero Header -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-label">TEFL & PEDAGOJİ BÜLTENİ</div>
+    <h1>Veliler İçin Pedagoji Bloğu</h1>
+    <p>Çocuklarda erken yaşta dil edinimi, öğretim tasarımı modelleri ve evde destekleyici metotlar üzerine makaleler.</p>
+  </div>
+</header>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* Navbar */
-    .nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--primary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      letter-spacing: -0.5px;
-    }
-    .logo span {
-      color: var(--accent);
-    }
-    .back-btn {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-light);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: all 0.2s;
-    }
-    .back-btn:hover {
-      color: var(--primary);
-      border-color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    /* Hero - Trust Theme Banner */
-    .hero {
-      margin-top: 68px;
-      background: linear-gradient(135deg, #1A2B4A 0%, #2C5282 100%);
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.05) 1.5px, transparent 1.5px);
-      background-size: 24px 24px;
-      opacity: 0.8;
-    }
-    .hero-content {
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-label {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      display: inline-block;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      color: #E2E8F0;
-    }
-    .hero h1 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 2.4rem;
-      line-height: 1.25;
-      margin-bottom: 12px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-    .hero p {
-      font-size: 1.05rem;
-      color: #E2E8F0;
-      opacity: 0.9;
-    }
-
-    /* Main Grid */
-    .main-container {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 0 20px;
-    }
-    
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-
-    .blog-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(26, 43, 74, 0.02);
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .blog-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(26, 43, 74, 0.06);
-      border-color: rgba(26, 43, 74, 0.15);
-    }
-    .blog-card-img {
-      height: 180px;
-      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--primary);
-    }
-    .blog-card-content {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .blog-card-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.78rem;
-      color: var(--text-light);
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .blog-card-tag {
-      color: var(--accent);
-    }
-    .blog-card h3 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.2rem;
-      color: var(--text);
-      line-height: 1.35;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    .blog-card p {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-bottom: 20px;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-    .blog-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid var(--border);
-      padding-top: 16px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-    .blog-card-footer i {
-      width: 16px;
-      height: 16px;
-      stroke-width: 3;
-    }
-
-    /* Newsletter Box */
-    .newsletter-box {
-      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      margin-top: 60px;
-      text-align: center;
-    }
-    .newsletter-box h2 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-weight: 800;
-    }
-    .newsletter-box p {
-      color: var(--text-light);
-      max-width: 500px;
-      margin: 0 auto 24px;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-    .newsletter-form {
-      display: flex;
-      max-width: 480px;
-      margin: 0 auto;
-      gap: 10px;
-    }
-    .newsletter-input {
-      flex: 1;
-      padding: 12px 18px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-    }
-    .newsletter-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(26, 43, 74, 0.08);
-    }
-    .newsletter-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: var(--radius-md);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s;
-    }
-    .newsletter-btn:hover {
-      background: var(--secondary);
-    }
-
-    /* Footer */
-    footer {
-      background: #1A202C;
-      color: #718096;
-      padding: 40px 20px;
-      text-align: center;
-      border-top: 1px solid #2D3748;
-      margin-top: 80px;
-    }
-    footer a {
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .newsletter-form {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- SSoT Dynamic Header -->
-  <div id="withbora-header" data-subdomain="pedagogy"></div>
-
-  <!-- Hero Header -->
-  <header class="hero">
-    <div class="hero-content">
-      <div class="hero-label">TEFL & PEDAGOJİ BÜLTENİ</div>
-      <h1>Veliler İçin Pedagoji Bloğu</h1>
-      <p>Çocuklarda erken yaşta dil edinimi, öğretim tasarımı modelleri ve evde destekleyici metotlar üzerine makaleler.</p>
-    </div>
-  </header>
-
-  <!-- Blog Listesi Grid -->
-  <main class="main-container">
-    
-    <div class="blog-grid">
-      
-      <!-- Kart 1 -->
-      <article class="blog-card">
-        <div class="blog-card-img"><i data-lucide="home" style="width: 48px; height: 48px;"></i></div>
-        <div class="blog-card-content">
-          <div class="blog-card-meta">
-            <span class="blog-card-tag">Evde Eğitim</span>
-            <span>⏱️ 5 dk okuma</span>
-          </div>
-          <h3>Çocuğuma Evde Nasıl İngilizce Çalıştırabilirim?</h3>
-          <p>Çocuğunuzla evde İngilizce pratik yaparken çeviri (tercüme) yapmaktan kaçınmanın önemi. Doğal dil edinimi süreçleri için evde kurabileceğiniz en etkili 5 rutin ve oyun metodu.</p>
-          <div class="blog-card-footer">
-            <span>Yazıyı Oku</span>
-            <i data-lucide="chevron-right"></i>
-          </div>
+<!-- Blog Listesi Grid -->
+<main class="main-container">
+  
+  <div class="blog-grid">
+    {% for post in site.posts %}
+    <article class="blog-card" onclick="window.location.href='{{ post.url | relative_url }}'" style="cursor: pointer;">
+      <div class="blog-card-img">
+        <i data-lucide="{{ post.icon | default: 'file-text' }}" style="width: 48px; height: 48px;"></i>
+      </div>
+      <div class="blog-card-content">
+        <div class="blog-card-meta">
+          <span class="blog-card-tag">{{ post.category }}</span>
+          <span>⏱️ {{ post.read_time | default: '5 dk okuma' }}</span>
         </div>
-      </article>
-
-      <!-- Kart 2 -->
-      <article class="blog-card">
-        <div class="blog-card-img"><i data-lucide="dribbble" style="width: 48px; height: 48px;"></i></div>
-        <div class="blog-card-content">
-          <div class="blog-card-meta">
-            <span class="blog-card-tag">Oyunlaştırma</span>
-            <span>⏱️ 4 dk okuma</span>
-          </div>
-          <h3>Dil Öğreniminde Oyunlaştırmanın Gücü</h3>
-          <p>Ders olarak görülen eğitimlerin çocuklar üzerindeki baskısı. Gelişim haritalarının, seviyelerin ve rozetlerin çocukların dil edinimi motivasyonunu nasıl kalıcı hale getirdiğini inceledik.</p>
-          <div class="blog-card-footer">
-            <span>Yazıyı Oku</span>
-            <i data-lucide="chevron-right"></i>
-          </div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+        <div class="blog-card-footer">
+          <span>Yazıyı Oku</span>
+          <i data-lucide="chevron-right"></i>
         </div>
-      </article>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
 
-      <!-- Kart 3 -->
-      <article class="blog-card">
-        <div class="blog-card-img"><i data-lucide="award" style="width: 48px; height: 48px;"></i></div>
-        <div class="blog-card-content">
-          <div class="blog-card-meta">
-            <span class="blog-card-tag">Pedagoji</span>
-            <span>⏱️ 6 dk okuma</span>
-          </div>
-          <h3>TEFL Sertifikalı Eğitmen Kimdir?</h3>
-          <p>Erken yaş gruplarına yabancı dil öğretmek, yetişkin eğitiminden tamamen farklı pedagojik ilkeler gerektirir. TEFL sertifikasyonunun kalite standartları ve veliler için önemi.</p>
-          <div class="blog-card-footer">
-            <span>Yazıyı Oku</span>
-            <i data-lucide="chevron-right"></i>
-          </div>
-        </div>
-      </article>
+  <!-- Bülten Kaydı -->
+  <section class="newsletter-box">
+    <h2>Pedagoji Bültenine Abone Olun</h2>
+    <p>Bora Hoca'nın her hafta veliler için hazırladığı pratik pedagoji makalelerini ve rehberleri e-postanıza alın.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Kayıt başarılı! Bültene katıldığınız için teşekkür ederiz.');">
+      <input type="email" class="newsletter-input" placeholder="E-posta adresiniz..." required>
+      <button type="submit" class="newsletter-btn">Bültene Katıl <i data-lucide="mail"></i></button>
+    </form>
+  </section>
 
-    </div>
-
-    <!-- Bülten Kaydı -->
-    <section class="newsletter-box">
-      <h2>Pedagoji Bültenine Abone Olun</h2>
-      <p>Bora Hoca'nın her hafta veliler için hazırladığı pratik pedagoji makalelerini ve rehberleri e-postanıza alın.</p>
-      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Kayıt başarılı! Bültene katıldığınız için teşekkür ederiz.');">
-        <input type="email" class="newsletter-input" placeholder="E-posta adresiniz..." required>
-        <button type="submit" class="newsletter-btn">Bültene Katıl <i data-lucide="mail"></i></button>
-      </form>
-    </section>
-
-  </main>
-
-  <!-- SSoT Dynamic Footer -->
-  <div id="withbora-footer"></div>
-
-  <!-- SSoT Layout Loader script -->
-  <script src="https://withbora.io/wp-content/plugins/withbora-lms-bridge/withbora-global-nav.js?v=2"></script>
-</body>
-</html>
+</main>

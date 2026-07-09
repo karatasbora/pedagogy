@@ -1,0 +1,13 @@
+title: "Pedagogy + with Bora"
+description: "Bora Karataş'ın veliler için hazırladığı, çocuklarda erken yaşta İngilizce edinimi, oyunlaştırma ve TEFL pedagojisi odaklı makaleler."
+baseurl: "" # GitHub Pages root domain
+url: "https://pedagogy.withbora.io"
+
+markdown: kramdown
+theme: minima # Basic theme for dependencies, though we use custom layouts
+
+# Exclude unnecessary files from being built
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
