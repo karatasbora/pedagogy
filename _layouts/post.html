@@ -1,0 +1,139 @@
+---
+layout: default
+---
+
+<style>
+  .post-header {
+    background: linear-gradient(135deg, #1A2B4A 0%, #2C5282 100%);
+    color: white;
+    padding: 60px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 68px; /* For fixed nav */
+  }
+  .post-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    opacity: 0.8;
+  }
+  .post-header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .post-meta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #E2E8F0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .post-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .post-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 100px;
+    transition: background 0.2s;
+  }
+  .back-link:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  .post-content {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .post-content h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin: 40px 0 20px;
+    font-weight: 800;
+  }
+  .post-content h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--secondary);
+    font-size: 1.4rem;
+    margin: 30px 0 16px;
+    font-weight: 700;
+  }
+  .post-content p {
+    margin-bottom: 24px;
+  }
+  .post-content ul, .post-content ol {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+  .post-content li {
+    margin-bottom: 10px;
+  }
+  .post-content blockquote {
+    border-left: 4px solid var(--accent);
+    background: var(--primary-light);
+    padding: 20px;
+    margin: 30px 0;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+  }
+</style>
+
+<article>
+  <header class="post-header">
+    <div class="post-header-content">
+      <a href="{{ '/' | relative_url }}" class="back-link">
+        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+        Makalelere Dön
+      </a>
+      <div style="margin-top: 30px;">
+        <div class="post-meta">
+          {% if page.category %}
+            <span><i data-lucide="tag" style="width: 14px; height: 14px;"></i> {{ page.category }}</span>
+          {% endif %}
+          {% if page.read_time %}
+            <span><i data-lucide="clock" style="width: 14px; height: 14px;"></i> {{ page.read_time }}</span>
+          {% endif %}
+        </div>
+        <h1 class="post-title">{{ page.title }}</h1>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>
