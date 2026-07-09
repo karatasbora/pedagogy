@@ -2,6 +2,168 @@
 layout: default
 ---
 
+<style>
+  /* Blog Grid */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  /* Blog Card */
+  .blog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+  .blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #CBD5E0;
+  }
+  .blog-card-img {
+    height: 180px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #E2E8F0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .blog-card-tag {
+    color: var(--accent);
+  }
+  .blog-card h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .blog-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  .blog-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .blog-card-footer i {
+    width: 16px;
+    height: 16px;
+    stroke-width: 3;
+  }
+
+  /* Newsletter Box */
+  .newsletter-box {
+    background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-top: 60px;
+    text-align: center;
+  }
+  .newsletter-box h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .newsletter-box p {
+    color: var(--text-light);
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+  .newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 12px;
+  }
+  .newsletter-input {
+    flex-grow: 1;
+    padding: 14px 20px;
+    border: 1px solid #CBD5E0;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .newsletter-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+  }
+  .newsletter-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0 24px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .newsletter-btn:hover {
+    background: var(--secondary);
+    transform: translateY(-1px);
+  }
+  .newsletter-btn i {
+    width: 18px;
+    height: 18px;
+  }
+  @media (max-width: 600px) {
+    .newsletter-form {
+      flex-direction: column;
+    }
+    .newsletter-btn {
+      padding: 14px 24px;
+      justify-content: center;
+    }
+  }
+</style>
+
 <!-- Hero Header -->
 <header class="hero">
   <div class="hero-content">
@@ -40,10 +202,72 @@ layout: default
   <section class="newsletter-box">
     <h2>Pedagoji Bültenine Abone Olun</h2>
     <p>Bora Hoca'nın her hafta veliler için hazırladığı pratik pedagoji makalelerini ve rehberleri e-postanıza alın.</p>
-    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Kayıt başarılı! Bültene katıldığınız için teşekkür ederiz.');">
-      <input type="email" class="newsletter-input" placeholder="E-posta adresiniz..." required>
-      <button type="submit" class="newsletter-btn">Bültene Katıl <i data-lucide="mail"></i></button>
+    <form id="newsletterForm" class="newsletter-form">
+      <!-- Honeypot Alanı (Bot Koruması) -->
+      <input type="text" name="_wba_hp" id="_wba_hp" style="display:none" tabindex="-1" autocomplete="off">
+      
+      <div style="display:flex; flex-direction:column; flex-grow:1; gap:12px; text-align:left;">
+        <div style="display:flex; gap:12px;">
+          <input type="email" id="nl_email" class="newsletter-input" placeholder="E-posta adresiniz..." required style="flex-grow:1;">
+          <button type="submit" id="nl_btn" class="newsletter-btn">Bültene Katıl <i data-lucide="mail"></i></button>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:var(--text-light);">
+          <input type="checkbox" id="nl_kvkk" required style="margin-top:4px;">
+          <label for="nl_kvkk">
+            <a href="https://withbora.io/kvkk/" target="_blank" style="color:var(--primary); font-weight:700;">KVKK Aydınlatma Metni</a>'ni ve <a href="https://withbora.io/gizlilik/" target="_blank" style="color:var(--primary); font-weight:700;">Gizlilik Politikası</a>'nı okudum, iletişim kanalları üzerinden bana ulaşılmasına izin veriyorum.
+          </label>
+        </div>
+        <div id="nl_message" style="display:none; font-weight:700; font-size:0.9rem; margin-top:8px;"></div>
+      </div>
     </form>
   </section>
 
 </main>
+
+<script>
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    var btn = document.getElementById('nl_btn');
+    var msg = document.getElementById('nl_message');
+    var email = document.getElementById('nl_email').value;
+    var honeypot = document.getElementById('_wba_hp').value;
+    var kvkk = document.getElementById('nl_kvkk').checked;
+
+    btn.disabled = true;
+    btn.innerHTML = 'Gönderiliyor...';
+    msg.style.display = 'none';
+
+    fetch('https://withbora.io/wp-json/withbora/v1/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        _wba_hp: honeypot,
+        kvkk_approval: kvkk ? 'yes' : 'no'
+      })
+    })
+    .then(response => response.json().then(data => ({status: response.status, body: data})))
+    .then(res => {
+      msg.style.display = 'block';
+      if (res.status === 200) {
+        msg.style.color = '#276749';
+        msg.textContent = res.body.message || 'Kayıt başarılı! Teşekkür ederiz.';
+        document.getElementById('newsletterForm').reset();
+      } else {
+        msg.style.color = '#C53030';
+        msg.textContent = res.body.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+      }
+    })
+    .catch(err => {
+      msg.style.display = 'block';
+      msg.style.color = '#C53030';
+      msg.textContent = 'Bağlantı hatası oluştu. Lütfen daha sonra tekrar deneyin.';
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerHTML = 'Bültene Katıl <i data-lucide="mail"></i>';
+      lucide.createIcons();
+    });
+  });
+</script>
