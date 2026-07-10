@@ -202,20 +202,72 @@ layout: default
   <section class="newsletter-box">
     <h2>Pedagoji Bültenine Abone Olun</h2>
     <p>Bora Hoca'nın her hafta veliler için hazırladığı pratik pedagoji makalelerini ve rehberleri e-postanıza alın.</p>
-    <div class="ml-embedded" data-form="zReFRg"></div>
+    <form id="newsletterForm" class="newsletter-form">
+      <!-- Honeypot Alanı (Bot Koruması) -->
+      <input type="text" name="_wba_hp" id="_wba_hp" style="display:none" tabindex="-1" autocomplete="off">
+      
+      <div style="display:flex; flex-direction:column; flex-grow:1; gap:12px; text-align:left;">
+        <div style="display:flex; gap:12px;">
+          <input type="email" id="nl_email" class="newsletter-input" placeholder="E-posta adresiniz..." required style="flex-grow:1;">
+          <button type="submit" id="nl_btn" class="newsletter-btn">Bültene Katıl <i data-lucide="mail"></i></button>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:var(--text-light);">
+          <input type="checkbox" id="nl_kvkk" required style="margin-top:4px;">
+          <label for="nl_kvkk">
+            <a href="https://withbora.io/kvkk/" target="_blank" style="color:var(--primary); font-weight:700;">KVKK Aydınlatma Metni</a>'ni ve <a href="https://withbora.io/gizlilik/" target="_blank" style="color:var(--primary); font-weight:700;">Gizlilik Politikası</a>'nı okudum, iletişim kanalları üzerinden bana ulaşılmasına izin veriyorum.
+          </label>
+        </div>
+        <div id="nl_message" style="display:none; font-weight:700; font-size:0.9rem; margin-top:8px;"></div>
+      </div>
+    </form>
   </section>
 
 </main>
 
 <script>
-  setTimeout(function() {
-    var header = document.getElementById('withbora-header');
-    if (!header) {
-      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: withbora-header DIV MISSING</div>');
-    } else if (header.innerHTML.trim() === '') {
-      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: HEADER DIV IS EMPTY. FETCH FAILED OR BLOCKED.</div>');
-    } else if (header.offsetHeight === 0) {
-      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: HEADER HTML IS PRESENT BUT HEIGHT IS 0 (HIDDEN BY CSS).</div>');
-    }
-  }, 3000);
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    var btn = document.getElementById('nl_btn');
+    var msg = document.getElementById('nl_message');
+    var email = document.getElementById('nl_email').value;
+    var honeypot = document.getElementById('_wba_hp').value;
+    var kvkk = document.getElementById('nl_kvkk').checked;
+
+    btn.disabled = true;
+    btn.innerHTML = 'Gönderiliyor...';
+    msg.style.display = 'none';
+
+    fetch('https://withbora.io/wp-json/withbora/v1/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        _wba_hp: honeypot,
+        kvkk_approval: kvkk ? 'yes' : 'no'
+      })
+    })
+    .then(response => response.json().then(data => ({status: response.status, body: data})))
+    .then(res => {
+      msg.style.display = 'block';
+      if (res.status === 200) {
+        msg.style.color = '#276749';
+        msg.textContent = res.body.message || 'Kayıt başarılı! Teşekkür ederiz.';
+        document.getElementById('newsletterForm').reset();
+      } else {
+        msg.style.color = '#C53030';
+        msg.textContent = res.body.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+      }
+    })
+    .catch(err => {
+      msg.style.display = 'block';
+      msg.style.color = '#C53030';
+      msg.textContent = 'Bağlantı hatası oluştu. Lütfen daha sonra tekrar deneyin.';
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerHTML = 'Bültene Katıl <i data-lucide="mail"></i>';
+      lucide.createIcons();
+    });
+  });
 </script>
