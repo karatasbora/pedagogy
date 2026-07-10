@@ -206,3 +206,16 @@ layout: default
   </section>
 
 </main>
+
+<script>
+  setTimeout(function() {
+    var header = document.getElementById('withbora-header');
+    if (!header) {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: withbora-header DIV MISSING</div>');
+    } else if (header.innerHTML.trim() === '') {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: HEADER DIV IS EMPTY. FETCH FAILED OR BLOCKED.</div>');
+    } else if (header.offsetHeight === 0) {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:20px;position:fixed;top:0;left:0;right:0;z-index:999999;">DEBUG: HEADER HTML IS PRESENT BUT HEIGHT IS 0 (HIDDEN BY CSS).</div>');
+    }
+  }, 3000);
+</script>
